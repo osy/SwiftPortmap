@@ -17,9 +17,18 @@ let package = Package(
             name: "SwiftPortmap",
             targets: ["SwiftPortmap"]),
     ],
+    dependencies: [
+        .package(url: "https://github.com/apple/swift-argument-parser", from: "1.2.0"),
+    ],
     targets: [
         .target(
             name: "SwiftPortmap"),
+        .executableTarget(
+            name: "portmap",
+            dependencies: [
+                "SwiftPortmap",
+                .product(name: "ArgumentParser", package: "swift-argument-parser")],
+            path: "Sources/CLI"),
         .testTarget(
             name: "SwiftPortmapTests",
             dependencies: ["SwiftPortmap"]),

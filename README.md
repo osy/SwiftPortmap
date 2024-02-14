@@ -4,6 +4,8 @@ A Swift library for reserving ports and creating NAT mappings. A system port can
 
 Once a port is reserved internal to the host, this library also allows you to make a NAT mapping to export the port externally. This uses UPnP/NAT-PMP through the DNS-SD system framework. The mapping is retained throughout the lifecycle of the `Port` object and an optional callback can be set to be notified of any NAT mapping changes.
 
+A simple CLI tool is provided both as an example and also as a simple utility to perform NAT mappings.
+
 ## Usage
 Reserve any port:
 ```swift
