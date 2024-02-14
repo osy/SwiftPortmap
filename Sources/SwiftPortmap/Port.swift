@@ -245,8 +245,8 @@ public class Port {
                                                          0,
                                                          interfaceIndex,
                                                          DNSServiceProtocol(isTcp ? kDNSServiceProtocol_TCP : kDNSServiceProtocol_UDP),
-                                                         internalPort,
-                                                         requestedExternalPort ?? internalPort,
+                                                         internalPort.bigEndian,
+                                                         (requestedExternalPort ?? internalPort).bigEndian,
                                                          ttl,
                                                          natPortCallback,
                                                          context)
@@ -265,8 +265,8 @@ public class Port {
 private func natPortCallback(sdRef: DNSServiceRef?, flags: DNSServiceFlags, interfaceIndex: UInt32, errorCode: DNSServiceErrorType, externalAddress: UInt32, `protocol`: DNSServiceProtocol, internalPort: UInt16, externalPort: UInt16, ttl: UInt32, context: UnsafeMutableRawPointer?) -> Void {
     let _self = Unmanaged<Port>.fromOpaque(context!).takeUnretainedValue()
     _self._externalAddress = externalAddress
-    _self._externalPort = externalPort
-    _self.internalPort = internalPort
+    _self._externalPort = externalPort.bigEndian
+    _self.internalPort = internalPort.bigEndian
     defer {
         _self.mappingChangedHandler?(_self)
     }
